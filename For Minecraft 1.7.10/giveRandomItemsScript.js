@@ -57,7 +57,7 @@ var giveMessage = "*копаясь вы что-то нашли в хранили
 function givePlayerRandomItem() {
     // Проверяем, прошло ли нужное количество времени
     if (!isCooldownElepsed(world.getTotalTime())) {
-        npc.say('*хранилище пусто*'); // если нет, говорим что "хранилище пусто" и завершаем выполнение функции
+        npc.say(emptyMessage); // если нет, говорим что "хранилище пусто" и завершаем выполнение функции
         return;
     } 
 
@@ -72,7 +72,7 @@ function givePlayerRandomItem() {
             
             npc.setTempData("lastGiveTime", world.getTotalTime()); // устанавливаем, что предмет был получен
 
-            npc.say('*копаясь вы что-то нашли в хранилище*'); // уведомляем игрока
+            npc.say(giveMessage); // уведомляем игрока
 
             break; // прерываем цикл
         }
