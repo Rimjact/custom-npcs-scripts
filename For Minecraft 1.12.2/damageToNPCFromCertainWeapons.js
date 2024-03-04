@@ -24,8 +24,6 @@ var damageReductionMultipler = 1.5;
 
 
 // ================== ФУНКЦИОНАЛ ==================
-var forEach = Array.prototype.forEach;
-
 // Проверяет, имеет ли NPC уязвимость к текущему предмету в руке. Вернёт true если имеет, иначе false.
 function isHasVulnerabilityToWeapon(curentItemInHand, npc) {
     // Код разделён для оружия из MineFantasy и прочих так как в первом есть особенности
