@@ -1,5 +1,5 @@
 # Custom NPCs Scripts | Скрипты для Custom NPCs | Minecraft
-Этот репозиторий содержит мои наработки скриптов для мода Custom NPCs. Вы можете свободно использовать их в своих проектах.
+Этот репозиторий содержит мои наработки скриптов для мода Custom NPCs. Вы можете свободно использовать их в своих проектах согласно [MIT лицензии](https://github.com/Rimjact/custom-npcs-scripts/blob/main/LICENSE).
 
 ## Как использовать?
 Установите **[Custom NPCs](https://www.kodevelopment.nl/minecraft/customnpcs/downloads/)** под вашу версию игры, а также **Nashorn** (если требуется).
