@@ -5,11 +5,11 @@
 > Согласно MIT лицензии, вы обязаны упомянуть автора скрипта и прикрепить ссылку на данный репозиторий, если используете эти скрипты в своих проектах.
 
 ## Как использовать?
-Установите **[Custom NPCs](https://www.kodevelopment.nl/minecraft/customnpcs/downloads/)** (до 1.16.5) или **[Custom NPCs Unoffical](https://www.curseforge.com/minecraft/mc-mods/customnpcs-unofficial)** (с 1.19.2) под вашу версию игры, а также **Nashorn** (для старых версий).
+Установите **[Custom NPCs](https://www.kodevelopment.nl/minecraft/customnpcs/downloads/)** (до 1.16.5) или **[Custom NPCs Unofficial](https://www.curseforge.com/minecraft/mc-mods/customnpcs-unofficial)** (с 1.19.2) под вашу версию игры, а также **Nashorn** (для старых версий).
 В каждом файле скрипта содержится информация о версии игры, на которую он был сделан, а также как его вставить в своих NPC.
 
 > [!WARNING]
-> Все скрипты написаны на ECMAScript (JavaScript), по этому для их использования нужен Nashorn **(если по умолчанию в вашей версии недоступен ECMAScript)**.
+> Все скрипты написаны на ECMAScript (JavaScript), по этому для их использования нужен Nashorn **(если по умолчанию в вашей версии недоступен ECMAScript) (обычно на старых версиях, вроде 1.7.10)**.
 
 > [!NOTE]
 > Репозиторий со временем будет дополнятся новыми скриптами. Тут содержатся исключительно мои наработки.
