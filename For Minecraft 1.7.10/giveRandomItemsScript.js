@@ -60,17 +60,17 @@ function givePlayerRandomItem() {
     if (!isCooldownElepsed(world.getTotalTime())) {
         npc.say(emptyMessage); // если нет, говорим что "хранилище пусто" и завершаем выполнение функции
         return;
-    } 
+    }
 
     var randomNum = getRandomInt(randRangeMin, randRangeMax); // Генерируем случайное значение
- 
+
     for (var i = 0; i < itemsForGive.length; i++) {
         var curItem = itemsForGive[i]; // Текущий предмет в цикле из списка
-        
+
         // Если сгененированное значение попадает в диапазон предмета из таблицы
         if (randomNum >= curItem.minNum && randomNum <= curItem.maxNum) {
             player.giveItem(curItem.id, 0, curItem.count); // выдаём этот предмет игроку
-            
+
             npc.setTempData("lastGiveTime", world.getTotalTime()); // устанавливаем, что предмет был получен
 
             npc.say(giveMessage); // уведомляем игрока
