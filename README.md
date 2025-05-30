@@ -5,7 +5,7 @@
 > Согласно MIT лицензии, вы обязаны упомянуть автора скрипта и прикрепить ссылку на данный репозиторий, если используете эти скрипты в своих проектах.
 
 ## Как использовать?
-Установите **[Custom NPCs](https://www.kodevelopment.nl/minecraft/customnpcs/downloads/)** под вашу версию игры, а также **Nashorn** (если требуется).
+Установите **[Custom NPCs](https://www.kodevelopment.nl/minecraft/customnpcs/downloads/)** (до 1.16.5) или **[Cutom NPCs Unoffical](https://www.curseforge.com/minecraft/mc-mods/customnpcs-unofficial)** (с 1.19.2) под вашу версию игры, а также **Nashorn** (если требуется).
 В каждом файле скрипта содержится информация о версии игры, на которую он был сделан, а также как его вставить в своих NPC.
 
 > [!WARNING]
