@@ -19,6 +19,7 @@
     id - идентификатор предмета;
     chance - шанс выдачи предмета (в процентах);
     count - количество,
+    nbt - NBT теги предмета,
     range - дипазон для генератора чисел (не изменять)
 
 Для того, чтобы добавить новые предметы для выдачи,
@@ -29,7 +30,7 @@
 */
 var items = [
     {
-        id: "minecraft:wooden_axe",
+        id: 'minecraft:wooden_axe{custom_tag:1,custom_tag2:true,custom_tag3:"ok"}',
         chance: 55,
         count: 1,
         range: {
@@ -38,7 +39,7 @@ var items = [
         }
     },
     {
-        id: "minecraft:stone_axe",
+        id: 'minecraft:stone_axe',
         chance: 25,
         count: 1,
         range: {
@@ -47,7 +48,7 @@ var items = [
         }
     },
     {
-        id: "minecraft:iron_axe",
+        id: 'minecraft:iron_axe',
         chance: 15,
         count: 1,
         range: {
@@ -56,7 +57,7 @@ var items = [
         }
     },
     {
-        id: "minecraft:diamond_axe",
+        id: 'minecraft:diamond_axe',
         chance: 5,
         count: 1,
         range: {
@@ -125,7 +126,7 @@ function interact(e) {
     makeProgress(block, player);
     var curProgress = block.getTempdata().get('progress');
     if (curProgress >= 100)
-        onProgressDone(block, player);
+        onProgressDone(block);
 }
 
 // Custom NPCs API функция, которая срабатывает при завершении любого таймера.
@@ -153,7 +154,7 @@ function makeProgress(block, player) {
 }
 
 // Когда прогресс завершён.
-function onProgressDone(block, player) {
+function onProgressDone(block) {
     var blockTempData = block.getTempdata();
 
     blockTempData.put('progress', 0);
@@ -165,7 +166,7 @@ function onProgressDone(block, player) {
 
     blockTempData.put('empty', true);
 
-    giveRandomItemForPlayer(block, player);
+    giveRandomItemForPlayer(block);
 
     block.getTimers().forceStart(1, cooldown * 20, false);
 }
@@ -175,7 +176,7 @@ function onCooldownTimerFinished(blockTempData) {
 }
 
 // Выдаёт случайный предмет для игрока.
-function giveRandomItemForPlayer(block, player) {
+function giveRandomItemForPlayer(block) {
     var randomNum = getRandomInt(1, 100);
 
     for (var i = 0; i < items.length; i++) {
@@ -183,7 +184,7 @@ function giveRandomItemForPlayer(block, player) {
         var range = item.range;
 
         if (randomNum >= range.min && randomNum <= range.max) {
-            player.giveItem(item.id, item.count);
+            block.executeCommand('/give @p ' + item.id + ' ' + item.count);
             viewHintForPlayer(block, filledText);
             return;
         }
