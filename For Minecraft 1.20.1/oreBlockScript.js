@@ -52,7 +52,7 @@ var emptyText = '*жила истощена*';
 
 // Название звука для проигрывания во время повышения прогресса.
 var progressSound = 'minecraft:block.stone.break';
-//
+// Название звука для проигрывания, когда инструмент в руке игрока поломался.
 var instrumentBreakSound = 'minecraft:entity.item.break';
 
 
