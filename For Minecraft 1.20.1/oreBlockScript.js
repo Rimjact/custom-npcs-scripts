@@ -51,7 +51,9 @@ var harvestText = '*вы истощили жилу*';
 var emptyText = '*жила истощена*';
 
 // Название звука для проигрывания во время повышения прогресса.
-var progressSound = 'block.stone.hit';
+var progressSound = 'minecraft:block.stone.break';
+//
+var instrumentBreakSound = 'minecraft:entity.item.break';
 
 
 // ==== ФУНКЦИОНАЛ ====
@@ -173,6 +175,7 @@ function damageInstrument(player, instrument) {
 
     var newDamage = curDamage + instrumentDamageByHarvest;
     if (newDamage >= maxDamage) {
+        player.playSound(instrumentBreakSound, 0.5, 1);
         player.removeItem(instrument, 1);
         return;
     }
