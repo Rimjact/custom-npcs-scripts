@@ -35,20 +35,23 @@ var cooldown = 5;
 // Интервал между взаимодействиями (повышением прогресса) (в секундах).
 var interactColdown = 1;
 
-// Сколько добавится прогресса за каждый клик ПКМ.
-var progressCountByClick = 25;
+// Сколько будет нанесено урона предмету после того, как процесс добычи завершится.
+var instrumentDamageByHarvest = 10;
+
+// Сколько добавится прогресса за каждое взаимодействие с блоком.
+var progressCountByInteract = 25;
 
 // Текст для вывода, когда инструмент в руке игрока не подходит.
-var notAllowedInstrumentText = '*инструмент не подходил для добычи*';
+var notAllowedInstrumentText = '*нужен подходящий инструмент*';
 // Текст для отображения прогресса (поддерживает цвета) ({0} не удалять).
 var progressText = '*вы копаете руду* \u00A79 {0}% \u00A7f';
 // Текст для вывода, когда игрок выкопал руду.
-var depletionText = '*вы истощили жилу*';
+var harvestText = '*вы истощили жилу*';
 // Текст для вывода, когда жила истощена (кулдаун не прошел).
 var emptyText = '*жила истощена*';
 
 // Название звука для проигрывания во время повышения прогресса.
-var progressSound = 'block.stone.break';
+var progressSound = 'block.stone.hit';
 
 
 // ==== ФУНКЦИОНАЛ ====
@@ -69,8 +72,9 @@ function interact(e) {
     var player = e.player;
     var block = e.block;
     var blockTempdata = block.getTempdata();
+    var mainhandItem = player.mainhandItem;
 
-    if (!isInstrumentAllowed(player.mainhandItem.name)) {
+    if (!isInstrumentAllowed(mainhandItem.name)) {
         viewHintForPlayer(block, notAllowedInstrumentText);
         return;
     }
@@ -86,7 +90,7 @@ function interact(e) {
     makeProgress(block, player);
     var curProgress = blockTempdata.get('progress');
     if (curProgress == 100)
-        onProgressDone(block);
+        onProgressDone(block, player, mainhandItem);
 }
 
 // Custom NPCs API функция, которая срабатывает при завершении любого таймера.
@@ -109,7 +113,7 @@ function makeProgress(block, player) {
     var blockTempdata = block.getTempdata();
 
     var curProgress = blockTempdata.get('progress');
-    var newProgress = curProgress + progressCountByClick;
+    var newProgress = curProgress + progressCountByInteract;
     newProgress = (newProgress > 100) ? 100 : newProgress;
 
     blockTempdata.put('progress', newProgress);
@@ -162,6 +166,20 @@ function giveOreItem(block) {
     block.executeCommand('/give @p ' + oreItem.id + ' ' + oreItem.count);
 }
 
+// Наносит урон инструменту.
+function damageInstrument(player, instrument) {
+    var curDamage = instrument.getDamage();
+    var maxDamage = instrument.getMaxDamage();
+
+    var newDamage = curDamage + instrumentDamageByHarvest;
+    if (newDamage >= maxDamage) {
+        player.removeItem(instrument, 1);
+        return;
+    }
+
+    instrument.setDamage(newDamage);
+}
+
 // Запускает таймер восстановления руды.
 function startCooldownTimer(block) {
     block.getTimers().forceStart(1, cooldown * 20, false);
@@ -173,7 +191,7 @@ function startCooldownInteractTimer(block) {
 }
 
 // Обработчик завершения прогресса.
-function onProgressDone(block) {
+function onProgressDone(block, player, instrument) {
     var blockTempdata = block.getTempdata();
     blockTempdata.put('progress', 0);
     blockTempdata.put('empty', true);
@@ -181,7 +199,9 @@ function onProgressDone(block) {
     giveOreItem(block);
     block.setModel(emptyModel);
 
-    viewHintForPlayer(block, depletionText);
+    damageInstrument(player, instrument);
+
+    viewHintForPlayer(block, harvestText);
 
     startCooldownTimer(block);
 }
